@@ -65,10 +65,12 @@ def test_function(test_case):
         print("Fail")
 
 
-test_function([[1, 2, 3, 4, 5], [542, 31]])
+test_function([[1, 2, 3, 4, 5], [542, 31]])  # Pass
 test_case = [[4, 6, 2, 5, 9, 8], [964, 852]]
-test_function(test_case)
-test_function([[], [-1, -1]])
-test_function([[0], [-1, -1]])
-test_function([[0, 0], [0, 0]])
-test_function([[1, 1, 1, 3, 5, 6], [631, 511]])
+test_function(test_case)  # Pass
+test_function([[1, 1, 1, 3, 5, 6], [631, 511]])  # Pass
+
+# Edge cases
+test_function([[], [-1, -1]])  # Pass
+test_function([[0], [-1, -1]])  # Pass
+test_function([[0, 0], [0, 0]])  # Pass

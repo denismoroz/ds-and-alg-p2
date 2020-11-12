@@ -16,7 +16,8 @@
 
 import collections
 
-## Represents a single node in the Trie
+
+# Represents a single node in the Trie
 class TrieNode:
     def __init__(self):
         self.children = collections.defaultdict(TrieNode)
@@ -24,11 +25,11 @@ class TrieNode:
     
     def insert(self, char):
         return self.children[char]
-        
-## The Trie itself containing the root node and insert/find functions
+
+
+# The Trie itself containing the root node and insert/find functions
 class Trie:
     def __init__(self):
-        ## Initialize this Trie (add a root node)
         self.root = TrieNode()
 
     def insert(self, word):
@@ -39,9 +40,11 @@ class Trie:
             
         current_node.is_word = True
 
-
     def find(self, prefix):
-        ## Find the Trie node that represents this prefix
+        # Find the Trie node that represents this prefix
+        if not isinstance(prefix, str):
+            raise ValueError("Please, provide string as input parameter")
+
         current_node = self.root
 
         for char in prefix:
@@ -54,12 +57,16 @@ class Trie:
 
 # # Finding Suffixes
 # 
-# Now that we have a functioning Trie, we need to add the ability to list suffixes to implement our autocomplete feature.  To do that, we need to implement a new function on the `TrieNode` object that will return all complete word suffixes that exist below it in the trie.  For example, if our Trie contains the words `["fun", "function", "factory"]` and we ask for suffixes from the `f` node, we would expect to receive `["un", "unction", "actory"]` back from `node.suffixes()`.
+# Now that we have a functioning Trie, we need to add the ability to list suffixes to implement our autocomplete
+# feature.  To do that, we need to implement a new function on the `TrieNode` object that will return all complete word
+# suffixes that exist below it in the trie.  For example, if our Trie contains the words
+# `["fun", "function", "factory"]` and we ask for suffixes from the `f` node, we would expect to receive
+# `["un", "unction", "actory"]` back from `node.suffixes()`.
 # 
-# Using the code you wrote for the `TrieNode` above, try to add the suffixes function below. (Hint: recurse down the trie, collecting suffixes as you go.)
+# Using the code you wrote for the `TrieNode` above, try to add the suffixes function below.
+# (Hint: recurse down the trie, collecting suffixes as you go.)
 
 # In[5]:
-
 
 class TrieNode:
     def __init__(self):
@@ -69,15 +76,14 @@ class TrieNode:
     def insert(self, char):
         return self.children[char]
         
-    def suffixes(self, suffix = ''):
+    def suffixes(self, suffix=''):
         ## Recursive function that collects the suffix for 
         ## all complete words below this point
         result = []
         
         if self.is_word and suffix:
             result.append(suffix)
-        
-        
+
         for char, node in self.children.items():
             result += node.suffixes(suffix+char)
             
@@ -101,26 +107,30 @@ for word in wordList:
     MyTrie.insert(word)
 
 
-# In[7]:
+def testFunction(prefix, expectation):
+    prefixNode = MyTrie.find(prefix)
 
+    result = prefixNode.suffixes() if prefixNode else []
 
-from ipywidgets import widgets
-from IPython.display import display
-from ipywidgets import interact
-def f(prefix):
-    if prefix != '':
-        prefixNode = MyTrie.find(prefix)
-        if prefixNode:
-            print('\n'.join(prefixNode.suffixes()))
-        else:
-            print(prefix + " not found")
+    if expectation == result:
+        print('Pass')
     else:
-        print('')
-
-interact(f,prefix='');
+        print('Fail')
 
 
+testFunction('a', ['nt', "nthology", "ntagonist", "ntonym"]) # Pass
+testFunction('fun', ["ction"]) # Pass
+testFunction('trip', ["od"])# Pass
 
+#Edge cases
+
+testFunction('', wordList) # Pass
+testFunction('z', []) # Pass
+
+try:
+    testFunction(None, [])
+except ValueError as e:
+    print(e)
 
 
 

@@ -49,6 +49,9 @@ class Router:
         return route.handler
 
     def split_path(self, path):
+        if not isinstance(path, str):
+            raise ValueError("Path should be a string")
+
         steps = path.split('/')
         if steps[0] == '':
             steps = steps[1:]  # get rid of first /
@@ -70,5 +73,16 @@ print(router.lookup("/home/about"))  # should print 'about handler'
 print(router.lookup("/home/about/"))  # should print 'about handler' or None if you did not handle trailing slashes
 print(router.lookup("/home/about/me"))  # should print 'not found handler' or None if you did not implement one
 
-
+# Edge cases
 print(router.lookup("////"))  # should print 'root handler'
+print(router.lookup("")) # should print 'root handler'
+
+try:
+    router.lookup("home/about")
+except ValueError as e:
+    print(e) # Path should start with /
+
+try:
+    router.lookup(None)
+except ValueError as e:
+    print(e)  # Path should be a string

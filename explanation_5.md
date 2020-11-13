@@ -8,7 +8,7 @@ and hash of it's children and a flag if this node is represent the end of the wo
 
 Space complexity: 
     Insert: O(n) where n number of nodes in a tree.
-    Search: O(1) any other memory than existing tree introduced during search
+    Search: O(n) where n is word length
     
 Time complexity: 
     Insert: O(n) where n is word length.

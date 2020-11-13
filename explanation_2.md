@@ -14,5 +14,5 @@ Then run recursively algorithm again on part that looks unsorted.
 ### Time and Space complexity
 
 Space complexity: 0(n).
-Time complexity: O(log n).
+Time complexity: O(log n) due to binary search.
  

@@ -10,6 +10,6 @@ Repeat these steps till square root is found.
 
 ### Time and Space complexity
 
-Space complexity: 0(1).
-Time complexity: O(log n).
+Space complexity: O(1).
+Time complexity: O(log n) due to binary search.
  

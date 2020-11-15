@@ -22,7 +22,7 @@ def search(input_list, number, start, end):
     if len(input_list) == 0:
         return -1
 
-    if end - start == 1:
+    if end - start == 1 or end == start:
         if input_list[start] == number:
             return start
         if input_list[end] == number:
@@ -47,7 +47,7 @@ def search(input_list, number, start, end):
         return res
 
     if middle_item < end_item:
-        if middle_item < number < end_item:
+        if middle_item <= number < end_item:
             return search(input_list, number, middle, end)
     else:
         res = search(input_list, number, middle, end)
@@ -65,11 +65,14 @@ def linear_search(input_list, number):
 def test_function(test_case):
     input_list = test_case[0]
     number = test_case[1]
-    if linear_search(input_list, number) == rotated_array_search(input_list, number):
+    pos = rotated_array_search(input_list, number)
+    #print(pos)
+    expected = linear_search(input_list, number)
+    #print(expected)
+    if expected == pos:
         print("Pass")
     else:
         print("Fail")
-
 
 test_function([[1, 3], 1])  # Pass
 test_function([[3, 1], 1])  # Pass
@@ -97,3 +100,11 @@ try:
 except ValueError as e:
     print(e)  # input list should be a list
 
+
+#edge test 2  large list
+test_list=[i for i in range (1011,10000)]+[i for i in range (0,1011)]
+test_function([test_list, 6])
+
+#egde test 3  large list with negative numbers
+test_list = [i for i in range (1011, 10000)] + [i for i in range (-1000,1011)]
+test_function([test_list, -60])

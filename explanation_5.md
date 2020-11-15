@@ -12,5 +12,4 @@ Space complexity:
     
 Time complexity: 
     Insert: O(n) where n is word length.
-    Search: O(n) where n is search word length
-     
+    Search: O(n * m) where n is the number of depth of Trie and m is the average length of unique path stored in each Node.

@@ -13,5 +13,5 @@ Space complexity:
     
 Time complexity: 
     Insert: O(n) where n number of segments in path.
-    Search: O(n) where n number of segments in path, each segment should be checked.
+    Search: O(n * m) where n is the number of URLs/depth of RouteTrie and m is the average length of unique path stored in each Node or separated by a backslash.
      
